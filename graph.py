@@ -1,31 +1,31 @@
 import matplotlib.pyplot as plt
 
-graphs = "1.2"
+graphs = "1.3"
 
 
 def formatLine(line):
     return float(line.split()[-1])
 
 
-inFile = open("data/%s/in.5" % graphs)
+def plotFile(plt, fileName):
+    if ("in" in fileName):
+        legend = "Interface %s: In" % fileName.split(".")[-1]
+    else:
+        legend = "Interface %s: Out" % fileName.split(".")[-1]
+    with open("data/%s/%s" % (graphs, fileName)) as f:
+        data = f.readlines()
+        attributes = [formatLine(line) for line in data]
 
-inData = inFile.readlines()
+        x = [5*x for x in range(len(attributes))]
 
-inFile.close()
+        plt.plot(x, attributes, label=legend)
 
 
-outFile = open("data/%s/out.5" % graphs)
-outData = outFile.readlines()
-outFile.close()
+plotFile(plt, "in.6")
+plotFile(plt, "out.6")
+plotFile(plt, "in.7")
+plotFile(plt, "out.7")
 
-outAttributes = [formatLine(line) for line in outData]
-
-inAttributes = [formatLine(line) for line in inData]
-
-x = [5*x for x in range(len(inAttributes))]
-
-plt.plot(x, inAttributes, label="In")
-plt.plot(x, outAttributes, label="Out")
 plt.legend()
 plt.savefig("graphs/" + graphs + ".png")
 plt.show()
