@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-graphs = "1.3"
+graphs = "1.2"
 
 
 def formatLine(line):
@@ -21,10 +21,8 @@ def plotFile(plt, fileName):
         plt.plot(x, attributes, label=legend)
 
 
-plotFile(plt, "in.6")
-plotFile(plt, "out.6")
-plotFile(plt, "in.7")
-plotFile(plt, "out.7")
+plotFile(plt, "in.5")
+plotFile(plt, "out.5")
 
 plt.legend()
 plt.savefig("graphs/" + graphs + ".png")
