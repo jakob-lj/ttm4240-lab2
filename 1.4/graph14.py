@@ -246,3 +246,15 @@ plotCombination(DataGroupings.IPERF_TO_CLIENT,
                 DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_OCTETS)
 plotCombination(DataGroupings.HAS_FROM_CLIENT,
                 DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_OCTETS)
+
+plotCombination(DataGroupings.HAS_FROM_CLIENT,
+                DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_OCTETS)
+
+plotCombination(DataGroupings.HAS_FROM_CLIENT,
+                DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_PKTS)
+
+plotCombination(DataGroupings.IPERF_TO_CLIENT,
+                DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_PKTS)
+
+plotCombination(DataGroupings.IPERF_TO_CLIENT,
+                DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_OCTETS)
