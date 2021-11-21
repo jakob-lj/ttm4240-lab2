@@ -176,6 +176,15 @@ def getTitleFromGroupAndField(group, field):
     return title
 
 
+def getYLabelFromField(field):
+    if (field == InterstingFields.REQUEST_TIME):
+        return "Micro seconds"
+    elif (field == InterstingFields.REQUEST_PKTS):
+        return "Number of packets"
+    elif (field == InterstingFields.REQUEST_OCTETS):
+        return "Number of octets"
+
+
 def plot(group, field):
     plotterData = getPlotDataByDataGroupAndInterstingField(group, field)
     plt.plot(plotterData[PlotterReadyData.X],
@@ -185,6 +194,9 @@ def plot(group, field):
 
     plt.title(title)
     plt.legend([title])
+
+    plt.xlabel("Seconds")
+    plt.ylabel(getYLabelFromField(field))
 
     plt.savefig("plots/%s/%s.png" % (group, field))
 
@@ -203,6 +215,9 @@ def plotCombination(group1, group2, field):
     plotterData2 = getPlotDataByDataGroupAndInterstingField(group2, field)
     plt.plot(plotterData2[PlotterReadyData.X],
              plotterData2[PlotterReadyData.Y], label=getTitleFromGroupAndField(group2, field))
+
+    plt.xlabel("Seconds")
+    plt.ylabel(getYLabelFromField(field))
 
     plt.title(title)
     plt.legend([getTitleFromGroupAndField(group1, field),
