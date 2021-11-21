@@ -152,36 +152,44 @@ def getPlotDataByDataGroupAndInterstingField(datagroup, interstingField):
     return x, y
 
 
-def plot(plotterData, type, title):
+def plot(group, field):
+    plotterData = getPlotDataByDataGroupAndInterstingField(group, field)
     plt.plot(plotterData[PlotterReadyData.X],
              plotterData[PlotterReadyData.Y])
+
+    if(group == DataGroupings.IPERF_TO_CLIENT):
+        title = "Iperf ingress"
+
+    elif (group == DataGroupings.IPERF_FROM_CLIENT):
+        title = "Iperf egress"
+    elif (group == DataGroupings.HAS_TO_CLIENT):
+        title = "Has ingress"
+    else:
+        title = "Has egress"
+
+    titleType = ""
+    if (field == InterstingFields.REQUEST_OCTETS):
+        titleType = "request octets"
+    elif (field == InterstingFields.REQUEST_PKTS):
+        titleType = "request packets"
+    elif (field == InterstingFields.REQUEST_TIME):
+        titleType = "request time"
+
+    title += " - " + titleType
 
     plt.title(title)
     plt.legend([title])
 
-    plt.savefig("plots/%s.png" % type)
+    plt.savefig("plots/%s/%s.png" % (group, field))
 
     plt.show()
 
 
-iperfToClientPackets = getPlotDataByDataGroupAndInterstingField(
-    DataGroupings.IPERF_TO_CLIENT, InterstingFields.REQUEST_PKTS)
+plotGroups = [DataGroupings.IPERF_TO_CLIENT, DataGroupings.IPERF_FROM_CLIENT,
+              DataGroupings.HAS_FROM_CLIENT, DataGroupings.HAS_TO_CLIENT]
+plotFields = [InterstingFields.REQUEST_PKTS,
+              InterstingFields.REQUEST_TIME, InterstingFields.REQUEST_OCTETS]
 
-
-plot(iperfToClientPackets, "iperfToClientPackets", "Iperf packet traffic ingress")
-
-iperfFromClientPackets = getPlotDataByDataGroupAndInterstingField(
-    DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_PKTS)
-
-plot(iperfFromClientPackets, "iperfFromClientPackets",
-     "Iperf packet traffic egress")
-
-hasToClientPackets = getPlotDataByDataGroupAndInterstingField(
-    DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_PKTS)
-
-plot(hasToClientPackets, "hasToClientPackets", "Has packet traffic ingress")
-
-hasFromClientPackest = getPlotDataByDataGroupAndInterstingField(
-    DataGroupings.HAS_FROM_CLIENT, InterstingFields.REQUEST_PKTS)
-
-plot(hasFromClientPackest, "hasFromClientPackets", "Has packet traffic egress")
+for group in plotGroups:
+    for field in plotFields:
+        plot(group, field)
