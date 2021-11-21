@@ -152,11 +152,7 @@ def getPlotDataByDataGroupAndInterstingField(datagroup, interstingField):
     return x, y
 
 
-def plot(group, field):
-    plotterData = getPlotDataByDataGroupAndInterstingField(group, field)
-    plt.plot(plotterData[PlotterReadyData.X],
-             plotterData[PlotterReadyData.Y])
-
+def getTitleFromGroupAndField(group, field):
     if(group == DataGroupings.IPERF_TO_CLIENT):
         title = "Iperf ingress"
 
@@ -177,10 +173,42 @@ def plot(group, field):
 
     title += " - " + titleType
 
+    return title
+
+
+def plot(group, field):
+    plotterData = getPlotDataByDataGroupAndInterstingField(group, field)
+    plt.plot(plotterData[PlotterReadyData.X],
+             plotterData[PlotterReadyData.Y])
+
+    title = getTitleFromGroupAndField(group, field)
+
     plt.title(title)
     plt.legend([title])
 
     plt.savefig("plots/%s/%s.png" % (group, field))
+
+    plt.show()
+
+
+def plotCombination(group1, group2, field):
+
+    title = getTitleFromGroupAndField(
+        group1, field) + " combined with " + getTitleFromGroupAndField(group2, field)
+
+    plotterData1 = getPlotDataByDataGroupAndInterstingField(group1, field)
+    plt.plot(plotterData1[PlotterReadyData.X],
+             plotterData1[PlotterReadyData.Y], label=getTitleFromGroupAndField(group1, field))
+
+    plotterData2 = getPlotDataByDataGroupAndInterstingField(group2, field)
+    plt.plot(plotterData2[PlotterReadyData.X],
+             plotterData2[PlotterReadyData.Y], label=getTitleFromGroupAndField(group2, field))
+
+    plt.title(title)
+    plt.legend([getTitleFromGroupAndField(group1, field),
+               getTitleFromGroupAndField(group2, field)])
+
+    plt.savefig("plots/combinations/%s.png" % (group1 + group2 + field))
 
     plt.show()
 
@@ -190,6 +218,11 @@ plotGroups = [DataGroupings.IPERF_TO_CLIENT, DataGroupings.IPERF_FROM_CLIENT,
 plotFields = [InterstingFields.REQUEST_PKTS,
               InterstingFields.REQUEST_TIME, InterstingFields.REQUEST_OCTETS]
 
-for group in plotGroups:
-    for field in plotFields:
-        plot(group, field)
+# for group in plotGroups:
+#     for field in plotFields:
+#         plot(group, field)
+
+plotCombination(DataGroupings.IPERF_TO_CLIENT,
+                DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_PKTS)
+plotCombination(DataGroupings.HAS_FROM_CLIENT,
+                DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_OCTETS)
