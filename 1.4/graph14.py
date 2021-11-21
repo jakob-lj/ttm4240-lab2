@@ -218,11 +218,16 @@ plotGroups = [DataGroupings.IPERF_TO_CLIENT, DataGroupings.IPERF_FROM_CLIENT,
 plotFields = [InterstingFields.REQUEST_PKTS,
               InterstingFields.REQUEST_TIME, InterstingFields.REQUEST_OCTETS]
 
-# for group in plotGroups:
-#     for field in plotFields:
-#         plot(group, field)
+for group in plotGroups:
+    for field in plotFields:
+        plot(group, field)
 
 plotCombination(DataGroupings.IPERF_TO_CLIENT,
                 DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_PKTS)
+plotCombination(DataGroupings.HAS_FROM_CLIENT,
+                DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_PKTS)
+
+plotCombination(DataGroupings.IPERF_TO_CLIENT,
+                DataGroupings.HAS_TO_CLIENT, InterstingFields.REQUEST_OCTETS)
 plotCombination(DataGroupings.HAS_FROM_CLIENT,
                 DataGroupings.IPERF_FROM_CLIENT, InterstingFields.REQUEST_OCTETS)
