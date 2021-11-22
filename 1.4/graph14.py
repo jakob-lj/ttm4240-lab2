@@ -48,8 +48,14 @@ def clockToDatetime(clock):
     return datetime.datetime.strptime(clock[5:], "%H:%M:%S.%f")
 
 
+def roundToNearestFive(numb):
+    base = 5
+    return base * round(numb / base)
+
+
 def clockToSecOffset(clock):
-    secOffset = (clockToDatetime(clock) - startClockTime).seconds
+    secOffset = roundToNearestFive(
+        (clockToDatetime(clock) - startClockTime).seconds)
     return secOffset
 
 
@@ -83,6 +89,8 @@ dataGroupedByOperationAnd = {
     DataGroupings.IPERF_FROM_CLIENT: {},
     DataGroupings.HAS_TO_CLIENT: {},
     DataGroupings.HAS_FROM_CLIENT: {},
+
+
 }
 
 for data in fileData:
