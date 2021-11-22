@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-graphs = "1.2"
+graphs = "1.3"
 
 
 def formatLine(line):
@@ -21,14 +21,13 @@ def plotFile(plt, fileName):
         plt.plot(x, attributes, label=legend)
 
 
-#plotFile(plt, "in.6")
-#plotFile(plt, "in.7")
-#plotFile(plt, "out.6")
-#plotFile(plt, "out.7")
-plotFile(plt, "in.5")
-plotFile(plt, "out.5")
+plotFile(plt, "in.6")
+plotFile(plt, "in.7")
+plotFile(plt, "out.6")
+plotFile(plt, "out.7")
+# plotFile(plt, "in.5")
+# plotFile(plt, "out.5")
 
-plt.title("Reuqests per 5 seconds")
 plt.xlabel("Time [sec]")
 plt.ylabel("Number of requests per 5 sec")
 plt.legend()
