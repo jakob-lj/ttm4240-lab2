@@ -13,13 +13,14 @@ class LINE_INDEX:
     END = 1
     SOURCE_INTERFACE = 2
     SORUCE_IP = 3
-    DESTINATION_INTERFACE = 4
-    DESTINATION_IP = 5
-    DESTIONATION_PORT = 6
-    P = 7
-    FL = 8
-    PACKETS = 9
-    OCTETS = 10
+    SOURCE_PORT = 4
+    DESTINATION_INTERFACE = 5
+    DESTINATION_IP = 6
+    DESTIONATION_PORT = 7
+    P = 8
+    FL = 9
+    PACKETS = 10
+    OCTETS = 11
 
 
 class IP_DOMAIN_INFO:
@@ -120,6 +121,7 @@ def groupBySeconds(dictElementArray):
     sortedDictElementKeys = [str(x) for x in sorted(dictElementKeys)]
 
     for element in sortedDictElementKeys:
+        print(element)
 
         result = {
             InterstingFields.REQUEST_TIME: 0,
@@ -132,12 +134,12 @@ def groupBySeconds(dictElementArray):
             result[InterstingFields.REQUEST_PKTS] += innerEl[InterstingFields.REQUEST_PKTS]
             result[InterstingFields.REQUEST_OCTETS] += innerEl[InterstingFields.REQUEST_OCTETS]
 
-        result[InterstingFields.REQUEST_TIME] = result[InterstingFields.REQUEST_TIME] / \
-            len(dictElementArray[element])
-        result[InterstingFields.REQUEST_PKTS] = result[InterstingFields.REQUEST_PKTS] / \
-            len(dictElementArray[element])
-        result[InterstingFields.REQUEST_OCTETS] = result[InterstingFields.REQUEST_OCTETS] / \
-            len(dictElementArray[element])
+        # result[InterstingFields.REQUEST_TIME] = result[InterstingFields.REQUEST_TIME] / \
+        #     len(dictElementArray[element])
+        # result[InterstingFields.REQUEST_PKTS] = result[InterstingFields.REQUEST_PKTS] / \
+        #     len(dictElementArray[element])
+        # result[InterstingFields.REQUEST_OCTETS] = result[InterstingFields.REQUEST_OCTETS] / \
+        #     len(dictElementArray[element])
 
         resultdict[element] = result
 
