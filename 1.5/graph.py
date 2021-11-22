@@ -34,7 +34,7 @@ def formatLine(line):
     return line.strip().split()
 
 
-fileData = [formatLine(x) for x in fileStream.readlines()][500:1000]
+fileData = [formatLine(x) for x in fileStream.readlines()]
 
 fileStream.close()
 
