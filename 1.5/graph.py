@@ -13,13 +13,14 @@ class LINE_INDEX:
     END = 1
     SOURCE_INTERFACE = 2
     SORUCE_IP = 3
-    DESTINATION_INTERFACE = 4
-    DESTINATION_IP = 5
-    DESTIONATION_PORT = 6
-    P = 7
-    FL = 8
-    PACKETS = 9
-    OCTETS = 10
+    SOURCE_PORT = 4
+    DESTINATION_INTERFACE = 5
+    DESTINATION_IP = 6
+    DESTIONATION_PORT = 7
+    P = 8
+    FL = 9
+    PACKETS = 10
+    OCTETS = 11
 
 
 class IP_DOMAIN_INFO:
@@ -48,8 +49,14 @@ def clockToDatetime(clock):
     return datetime.datetime.strptime(clock[5:], "%H:%M:%S.%f")
 
 
+def roundToNearestFive(numb):
+    base = 5
+    return base * round(numb/base)
+
+
 def clockToSecOffset(clock):
-    secOffset = (clockToDatetime(clock) - startClockTime).seconds
+    secOffset = roundToNearestFive(
+        (clockToDatetime(clock) - startClockTime).seconds)
     return secOffset
 
 
