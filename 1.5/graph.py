@@ -199,7 +199,6 @@ def plot(group, field):
 
     title = getTitleFromGroupAndField(group, field)
 
-    plt.title(title)
     plt.legend([title])
 
     plt.xlabel("Seconds")
@@ -226,7 +225,6 @@ def plotCombination(group1, group2, field):
     plt.xlabel("Seconds")
     plt.ylabel(getYLabelFromField(field))
 
-    plt.title(title)
     plt.legend([getTitleFromGroupAndField(group1, field),
                getTitleFromGroupAndField(group2, field)])
 
