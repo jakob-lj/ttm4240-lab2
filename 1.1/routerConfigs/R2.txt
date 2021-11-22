@@ -1,0 +1,139 @@
+Current configuration : 1708 bytes
+!
+upgrade fpd auto
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+ip source-route
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+!
+!         
+!
+no ip domain lookup
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!         
+!
+!
+!
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet1/0
+ ip address 172.16.0.3 255.255.255.0
+ duplex half
+!
+interface Ethernet1/1
+ ip address 10.0.8.2 255.255.255.252
+ duplex half
+!
+interface Ethernet1/2
+ ip address 10.0.8.6 255.255.255.252
+ duplex half
+!
+interface Ethernet1/3
+ ip address 10.0.2.254 255.255.255.0
+ duplex half
+!
+interface Ethernet2/0
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet2/1
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet2/2
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet2/3
+ no ip address
+ shutdown
+ duplex half
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip route 10.0.1.0 255.255.255.0 Ethernet1/1
+!
+no cdp log mismatch duplex
+!
+!
+!
+!
+snmp-server community public RO ttm4240
+snmp-server community private RO ttm4240
+snmp-server community ttm4240 RW
+snmp-server location 10.212.142.126
+snmp-server contact guttaboys@ttm4240.kp
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!         
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+end

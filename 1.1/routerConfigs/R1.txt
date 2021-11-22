@@ -1,0 +1,151 @@
+Building configuration...
+
+Current configuration : 2147 bytes
+!
+! Last configuration change at 18:41:40 UTC Mon Nov 22 2021
+upgrade fpd auto
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+ip source-route
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+!         
+!
+!
+ip flow-cache timeout active 1
+no ip domain lookup
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!         
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet1/0
+ ip address 172.16.0.2 255.255.255.0
+ duplex half
+!
+interface Ethernet1/1
+ ip address 10.0.8.9 255.255.255.252
+ rate-limit output 2496000 50000 100000 conform-action continue exceed-action drop
+ duplex half
+!
+interface Ethernet1/2
+ ip address 10.0.8.1 255.255.255.252
+ rate-limit output 2496000 50000 100000 conform-action continue exceed-action drop
+ duplex half
+!
+interface Ethernet1/3
+ ip address 10.0.1.254 255.255.255.0
+ ip flow ingress
+ ip flow egress
+ duplex half
+!
+interface Ethernet2/0
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet2/1
+ no ip address
+ shutdown
+ duplex half
+!
+interface Ethernet2/2
+ no ip address
+ shutdown
+ duplex half
+!         
+interface Ethernet2/3
+ no ip address
+ shutdown
+ duplex half
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+ip flow-export source Ethernet1/0
+ip flow-export version 5
+ip flow-export destination 172.16.0.1 7777
+!
+ip route 10.0.2.0 255.255.255.0 Ethernet1/2
+ip route 10.0.8.10 255.255.255.255 Ethernet1/1
+!
+no cdp log mismatch duplex
+!
+!
+!
+!
+snmp-server community public RO ttm4240
+snmp-server community private RO ttm4240
+snmp-server community ttm4240 RW
+snmp-server location 10.212.142.126
+snmp-server contact guttaboys@ttm4240.kp
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+end
