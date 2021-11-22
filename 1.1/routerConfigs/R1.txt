@@ -75,8 +75,6 @@ interface Ethernet1/2
 !
 interface Ethernet1/3
  ip address 10.0.1.254 255.255.255.0
- ip flow ingress
- ip flow egress
  duplex half
 !
 interface Ethernet2/0
@@ -102,10 +100,6 @@ interface Ethernet2/3
 ip forward-protocol nd
 no ip http server
 no ip http secure-server
-!
-ip flow-export source Ethernet1/0
-ip flow-export version 5
-ip flow-export destination 172.16.0.1 7777
 !
 ip route 10.0.2.0 255.255.255.0 Ethernet1/2
 ip route 10.0.8.10 255.255.255.255 Ethernet1/1
