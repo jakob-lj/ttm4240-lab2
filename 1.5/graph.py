@@ -33,7 +33,7 @@ def formatLine(line):
     return line.strip().split()
 
 
-fileData = [formatLine(x) for x in fileStream.readlines()]
+fileData = [formatLine(x) for x in fileStream.readlines()][:1000]
 
 fileStream.close()
 
